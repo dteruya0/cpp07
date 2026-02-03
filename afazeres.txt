@@ -1,0 +1,9 @@
+ex02 
+
+operator=
+
+operator[]
+
+size()
+
+exceção de bounds
