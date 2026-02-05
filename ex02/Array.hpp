@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 19:45:14 by dteruya           #+#    #+#             */
-/*   Updated: 2026/02/04 19:00:16 by dteruya          ###   ########.fr       */
+/*   Updated: 2026/02/05 14:40:54 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,17 @@ Array<T>::Array(const Array& other)
 
 template <typename T>
 Array<T>::~Array() {
+	if (DEBUG)
+		std::cout << "Array destructor called" << std::endl;
 	delete[] _data;
 }
 
 template <typename T>
 Array<T>& Array<T>::operator=(const Array& other)
 {
-	if (this != other)
+	if (this != &other)
 	{
-		delete[] data;
+		delete[] _data;
 
 		_size = other._size;
 		_data = new T[_size];
@@ -97,5 +99,17 @@ T& Array<T>::operator[](unsigned int index)
 }
 
 template <typename T>
+const T& Array<T>::operator[](unsigned int index) const
+{
+	if (index >= _size)
+		throw std::out_of_range("Index out of bounds");
+	return _data[index];
+}
+
+template <typename T>
+unsigned int Array<T>::size() const
+{
+	return _size;
+}
 
 #endif
